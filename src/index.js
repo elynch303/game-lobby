@@ -1,7 +1,4 @@
 import './index.css';
-
-// Hooks
-import { useAuthState, useDarkMode } from './hooks';
 // Components
 import Channel from './components/Channel';
 import firebase from 'firebase/app';
@@ -31,7 +28,7 @@ const firebaseConfig = {
 const LobbyContext = React.createContext();
 
 function AuthenticationButtons() {
-  const [user, setUser] = useState(null);
+  const [setUser] = useState(null);
   const auth = useAuth();
   const signIn = async () => {
     await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((result) => {
@@ -99,7 +96,7 @@ function LobbyProvider(props) {
 
   return (
     <LobbyContext.Provider value={{ userInLobby, lobby, joinLobby, leaveLobby, toggleReadiness, user }}>
-      <p>Welcome <img class="avatar" src={photoURL} /> {displayName}!</p>
+      <p>Welcome <img className="avatar" src={photoURL} alt="profile" /> {displayName}!</p>
       {props.children}
     </LobbyContext.Provider>
   );
@@ -165,11 +162,11 @@ function LobbyChat() {
 
   if (userInLobby) {
     components.push(
-      <Channel user={user} />
+      <Channel user={user} className='is-1' />
     );
   } else {
     components.push(
-      <p>Joing The Lobby & Chat With Other Players</p>
+      <p className='is-fluid'>Joing The Lobby & Chat With Other Players</p>
     );
   }
 
